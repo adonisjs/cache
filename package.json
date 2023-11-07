@@ -30,7 +30,7 @@
   "scripts": {
     "clean": "del-cli build",
     "copy:templates": "copyfiles \"stubs/**/*.stub\" build",
-    "typecheck": "tsc --no-emit",
+    "typecheck": "tsc --noEmit",
     "index:commands": "adonis-kit index build/commands",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
