@@ -73,10 +73,7 @@ export async function configure(command: Configure) {
    * Define environment variables
    */
   if (envVars) {
-    codemods.defineEnvVariables({
-      ...envVars,
-      CACHE_STORE: `Env.schema.enum(['${driver}'] as const)`,
-    })
+    codemods.defineEnvVariables(envVars)
   }
 
   /**

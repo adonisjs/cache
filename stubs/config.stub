@@ -9,7 +9,7 @@ import { defineConfig, store } from '@adonisjs/cache'
 import { {{ driver }}Driver } from '@adonisjs/cache/drivers/{{ driver }}'
 
 const cacheConfig = defineConfig({
-  default: env.get('CACHE_STORE'),
+  default: {{ driver }}
   stores: {
     {{#if driver === 'database'}}
     database: store().useL2Layer(databaseDriver({
