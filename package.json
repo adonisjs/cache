@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "@poppinss/utils": "^6.5.0",
-    "bentocache": "file:../../julr/bento/bentocache"
+    "bentocache": "1.0.0-beta.4"
   },
   "peerDependencies": {
     "@adonisjs/assembler": "^6.1.3-22",
