@@ -16,21 +16,16 @@ const DRIVERS_INFO: {
     envValidations?: Record<string, string>
   }
 } = {
-  redis: {
-    envValidations: {
-      REDIS_HOST: `Env.schema.string({ format: 'host' })`,
-      REDIS_PORT: `Env.schema.number()`,
-      REDIS_PASSWORD: `Env.schema.string.optional()`,
-    },
-    envVars: {
-      REDIS_HOST: '127.0.0.1',
-      REDIS_PORT: 6379,
-      REDIS_PASSWORD: '',
-    },
-  },
   file: {},
-  database: {},
   memory: {},
+  redis: {
+    envValidations: { CACHE_REDIS_CONNECTION: `Env.schema.string()` },
+    envVars: { CACHE_REDIS_CONNECTION: '' },
+  },
+  database: {
+    envValidations: { CACHE_DATABASE_CONNECTION: `Env.schema.string()` },
+    envVars: { CACHE_DATABASE_CONNECTION: '' },
+  },
   dynamodb: {
     envValidations: {
       AWS_ACCESS_KEY_ID: `Env.schema.string()`,

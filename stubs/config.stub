@@ -5,31 +5,27 @@ import env from '#start/env'
 {{#if driver === 'file'}}
 import app from '@adonisjs/core/services/app'
 {{/if}}
-import { defineConfig, store } from '@adonisjs/cache'
-import { {{ driver }}Driver } from '@adonisjs/cache/drivers/{{ driver }}'
+import { defineConfig, store, drivers } from '@adonisjs/cache'
 
 const cacheConfig = defineConfig({
-  default: {{ driver }}
+  default: '{{ driver }}',
   stores: {
     {{#if driver === 'database'}}
-    database: store().useL2Layer(databaseDriver({
-      tableName: 'cache,
-      autoCreateTable: true
+    database: store().useL2Layer(drivers.database({
+      connectionName: 'primary',
     }))
     {{#elif driver === 'redis'}}
-    redis: store().useL2Layer(redisDriver({
-      host: env.get('REDIS_HOST'),
-      port: env.get('REDIS_PORT'),
-      password: env.get('REDIS_PASSWORD'),
+    redis: store().useL2Layer(drivers.redis({
+      connectionName: 'primary',
     }))
     {{#elif driver === 'memory'}}
-    memory: store().useL1Layer(memoryDriver())
+    memory: store().useL1Layer(drivers.memory())
     {{#elif driver === 'file'}}
-    file: store().useL2Layer(fileDriver({
+    file: store().useL2Layer(drivers.file({
       directory: app.tmpPath('cache')
     }))
     {{#elif driver === 'dynamodb'}}
-    dynamodb: store().useL2Layer(dynamodbDriver({
+    dynamodb: store().useL2Layer(drivers.dynamodb({
       table: { name: 'cache' },
       credentials: {
         accessKeyId: env.get('AWS_ACCESS_KEY_ID'),
@@ -45,5 +41,5 @@ const cacheConfig = defineConfig({
 export default cacheConfig
 
 declare module '@adonisjs/cache/types' {
-  interface CacheStores {}
+  interface CacheStores extends InferStores<typeof cacheConfig> {}
 }
