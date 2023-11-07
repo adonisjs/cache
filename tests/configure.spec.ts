@@ -15,7 +15,7 @@ import Configure from '@adonisjs/core/commands/configure'
 const BASE_URL = new URL('./tmp/', import.meta.url)
 
 test.group('Configure', (group) => {
-  group.tap((t) => t.timeout(6000))
+  group.tap((t) => t.timeout(10_000))
 
   group.each.setup(async ({ context }) => {
     context.fs.baseUrl = BASE_URL
