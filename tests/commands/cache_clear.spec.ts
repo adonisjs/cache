@@ -12,7 +12,7 @@ import { AceFactory } from '@adonisjs/core/factories'
 import CacheClear from '../../commands/cache_clear.js'
 import { getCacheService } from '../../test_helpers/index.js'
 
-test.group('DbSeed', () => {
+test.group('CacheClear', () => {
   test('Clear default cache', async ({ fs, assert }) => {
     const ace = await new AceFactory().make(fs.baseUrl, { importer: () => {} })
     await ace.app.init()
