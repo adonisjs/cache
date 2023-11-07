@@ -80,14 +80,6 @@ test.group('Configure', (group) => {
     await command.exec()
 
     await assert.fileContains('config/cache.ts', 'defineConfig({')
-
-    await assert.fileContains('.env', 'REDIS_HOST')
-    await assert.fileContains('.env', 'REDIS_PORT')
-    await assert.fileContains('.env', 'REDIS_PASSWORD')
-
-    await assert.fileContains('start/env.ts', `REDIS_HOST: Env.schema.string({ format: 'host' })`)
-    await assert.fileContains('start/env.ts', 'REDIS_PORT: Env.schema.number()')
-    await assert.fileContains('start/env.ts', 'REDIS_PASSWORD: Env.schema.string.optional()')
   })
 
   test('create dynamo cache', async ({ assert }) => {

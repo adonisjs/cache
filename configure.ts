@@ -18,14 +18,8 @@ const DRIVERS_INFO: {
 } = {
   file: {},
   memory: {},
-  redis: {
-    envValidations: { CACHE_REDIS_CONNECTION: `Env.schema.string()` },
-    envVars: { CACHE_REDIS_CONNECTION: '' },
-  },
-  database: {
-    envValidations: { CACHE_DATABASE_CONNECTION: `Env.schema.string()` },
-    envVars: { CACHE_DATABASE_CONNECTION: '' },
-  },
+  redis: {},
+  database: {},
   dynamodb: {
     envValidations: {
       AWS_ACCESS_KEY_ID: `Env.schema.string()`,

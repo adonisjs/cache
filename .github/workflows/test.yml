@@ -12,11 +12,10 @@ jobs:
     uses: adonisjs/.github/.github/workflows/typecheck.yml@main
 
   tests:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.x', '21.x']
-
-    runs-on: ${{ matrix.os }}
     timeout-minutes: 10
     services:
       redis:
