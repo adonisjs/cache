@@ -46,6 +46,7 @@ test.group('Configure', (group) => {
 
     const ace = await app.container.make('ace')
     ace.prompt.trap('Select the cache driver you plan to use').chooseOption(0)
+    ace.ui.switchMode('raw')
 
     const command = await ace.create(Configure, ['../../index.js'])
     await command.exec()
@@ -75,6 +76,7 @@ test.group('Configure', (group) => {
 
     const ace = await app.container.make('ace')
     ace.prompt.trap('Select the cache driver you plan to use').chooseOption(0)
+    ace.ui.switchMode('raw')
 
     const command = await ace.create(Configure, ['../../index.js'])
     await command.exec()
@@ -101,6 +103,7 @@ test.group('Configure', (group) => {
 
     const ace = await app.container.make('ace')
     ace.prompt.trap('Select the cache driver you plan to use').chooseOption(4)
+    ace.ui.switchMode('raw')
 
     const command = await ace.create(Configure, ['../../index.js'])
     await command.exec()

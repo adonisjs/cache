@@ -18,12 +18,16 @@ import type { store } from './store.js'
 export type CacheOptions = Omit<RawBentoCacheOptions, 'logger' | 'emitter'>
 
 /**
- * A list of known caches stores inferred from the user config
+ * Infer the stores from the user config
  */
 export type InferStores<T extends { stores: Record<string, ReturnType<typeof store>> }> = {
   [K in keyof T['stores']]: any
 }
 
+/**
+ * A list of known caches stores inferred from the user config
+ * This interface must be extended in user-land
+ */
 export interface CacheStores {}
 
 /**
