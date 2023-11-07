@@ -11,9 +11,9 @@
 /// <reference types="@adonisjs/lucid/database_provider" />
 
 import { configProvider } from '@adonisjs/core'
-import { RedisConnection } from '@adonisjs/redis'
-import { ConfigProvider } from '@adonisjs/core/types'
-import { RedisConnections } from '@adonisjs/redis/types'
+import type { RedisConnection } from '@adonisjs/redis'
+import type { ConfigProvider } from '@adonisjs/core/types'
+import type { RedisConnections } from '@adonisjs/redis/types'
 import {
   MemoryConfig,
   CreateDriverResult,

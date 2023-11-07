@@ -9,7 +9,7 @@
 
 import { bentostore } from 'bentocache'
 import { configProvider } from '@adonisjs/core'
-import { ConfigProvider } from '@adonisjs/core/types'
+import type { ConfigProvider } from '@adonisjs/core/types'
 import {
   RawCommonOptions,
   CreateDriverResult,
