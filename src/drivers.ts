@@ -21,6 +21,8 @@ import {
   L2CacheDriver,
   DialectName,
   CreateBusDriverResult,
+  DynamoDBConfig,
+  FileConfig,
 } from 'bentocache/types'
 
 /**
@@ -37,6 +39,8 @@ export const drivers: {
   database: (config?: {
     connectionName?: string
   }) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
+  dynamodb: (config: DynamoDBConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
+  file: (config: FileConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
 } = {
   /**
    * Redis driver for L2 layer
@@ -110,6 +114,27 @@ export const drivers: {
         connection: rawConnection.connection.client,
         dialect: dialect === 'postgres' ? 'pg' : (dialect as DialectName),
       })
+    })
+  },
+
+  /**
+   * DynamoDB driver for L2 layer
+   * You must install @aws-sdk/client-dynamodb to use this driver
+   */
+  dynamodb(config) {
+    return configProvider.create(async () => {
+      const { dynamoDbDriver } = await import('bentocache/drivers/dynamodb')
+      return dynamoDbDriver(config)
+    })
+  },
+
+  /**
+   * File driver for L2 layer
+   */
+  file(config) {
+    return configProvider.create(async () => {
+      const { fileDriver } = await import('bentocache/drivers/file')
+      return fileDriver(config)
     })
   },
 }
