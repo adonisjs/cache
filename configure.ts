@@ -9,6 +9,8 @@
 
 import type Configure from '@adonisjs/core/commands/configure'
 
+import { stubsRoot } from './stubs/main.js'
+
 const DRIVERS = ['redis', 'file', 'memory', 'database', 'dynamodb'] as const
 const DRIVERS_INFO: {
   [K in (typeof DRIVERS)[number]]: {
@@ -75,5 +77,5 @@ export async function configure(command: Configure) {
   /**
    * Publish config
    */
-  await command.publishStub('config.stub', { driver: driver })
+  await codemods.makeUsingStub(stubsRoot, 'config.stub', { driver: driver })
 }
