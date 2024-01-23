@@ -82,9 +82,9 @@ export async function setupApp(
       },
       rcFileContents: {
         providers: [
-          '@adonisjs/redis/redis_provider',
-          '@adonisjs/lucid/database_provider',
-          '../../providers/cache_provider.js',
+          () => import('@adonisjs/redis/redis_provider'),
+          () => import('@adonisjs/lucid/database_provider'),
+          () => import('../providers/cache_provider.js'),
         ],
       },
     })
