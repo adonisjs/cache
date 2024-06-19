@@ -34,7 +34,7 @@
     "prebuild": "npm run lint && npm run clean",
     "build": "tsc",
     "postbuild": "npm run copy:templates && npm run index:commands",
-    "release": "np",
+    "release": "npx release-it",
     "version": "npm run build",
     "prepublishOnly": "npm run build"
   },
@@ -60,9 +60,9 @@
     "eslint": "^8.57.0",
     "ioredis": "^5.4.1",
     "luxon": "^3.4.4",
-    "np": "^10.0.6",
     "p-event": "^6.0.1",
     "prettier": "^3.3.2",
+    "release-it": "^17.3.0",
     "ts-node": "^10.9.2",
     "typescript": "~5.4.5"
   },
@@ -99,11 +99,17 @@
     "access": "public",
     "tag": "latest"
   },
-  "np": {
-    "message": "chore(release): %s",
-    "tag": "latest",
-    "branch": "main",
-    "anyBranch": false
+  "release-it": {
+    "git": {
+      "commitMessage": "chore(release): ${version}",
+      "tagAnnotation": "v${version}",
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true,
+      "releaseName": "v${version}",
+      "web": true
+    }
   },
   "c8": {
     "reporter": [
