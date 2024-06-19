@@ -109,11 +109,14 @@ export const drivers: {
       /**
        * Create the driver
        */
-      const { knexDriver } = await import('bentocache/drivers/sql')
-      return knexDriver({
-        connection: rawConnection.connection.client,
-        dialect: dialect === 'postgres' ? 'pg' : (dialect as DialectName),
+      const { default: knex } = await import('knex')
+      const knexClient = knex({
+        ...rawConnection.config,
+        client: dialect === 'postgres' ? 'pg' : (dialect as DialectName),
       })
+
+      const { knexDriver } = await import('bentocache/drivers/knex')
+      return knexDriver({ connection: knexClient })
     })
   },
 
