@@ -3,6 +3,7 @@ name: CI
 on:
   - push
   - pull_request
+  - workflow_call
 
 jobs:
   lint:
@@ -48,5 +49,3 @@ jobs:
         run: npm install
       - name: Test
         run: FORCE_COLOR=1 npm test
-
-
