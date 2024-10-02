@@ -11,7 +11,7 @@ import { join } from 'node:path'
 import { test } from '@japa/runner'
 import { defineConfig as defineLucidConfig } from '@adonisjs/lucid'
 
-import { setupApp } from '../test_helpers/index.js'
+import { setupApp } from './helpers.js'
 import { defineConfig, drivers, store } from '../index.js'
 
 test.group('Database', () => {
@@ -43,7 +43,7 @@ test.group('Database', () => {
     })
 
     const db = await app.container.make('lucid.db')
-    const cache = await app.container.make('cache')
+    const cache = await app.container.make('cache.manager')
 
     await cache.set('foo', 'bar')
 
@@ -88,7 +88,7 @@ test.group('Database', () => {
     })
 
     const db = await app.container.make('lucid.db')
-    const cache = await app.container.make('cache')
+    const cache = await app.container.make('cache.manager')
 
     await cache.set('foo', 'bar')
 

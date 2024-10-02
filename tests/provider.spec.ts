@@ -10,13 +10,13 @@
 import { pEvent } from 'p-event'
 import { test } from '@japa/runner'
 
-import { setupApp } from '../test_helpers/index.js'
+import { setupApp } from './helpers.js'
 
 test.group('Provider', () => {
   test('app emitter should be binded to bentocache', async ({ assert }) => {
     const app = await setupApp()
 
-    const cache = await app.container.make('cache')
+    const cache = await app.container.make('cache.manager')
     const emitter = await app.container.make('emitter')
 
     cache.set('foo', 'bar')
@@ -37,7 +37,7 @@ test.group('Provider', () => {
 
   test('should disconnect stores when shutting down the app', async () => {
     const app = await setupApp()
-    const cache = await app.container.make('cache')
+    const cache = await app.container.make('cache.manager')
 
     await cache.use('redis').get('foo')
 

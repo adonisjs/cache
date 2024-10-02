@@ -10,7 +10,7 @@
 import { test } from '@japa/runner'
 import { AceFactory } from '@adonisjs/core/factories'
 import CacheClear from '../../commands/cache_clear.js'
-import { getCacheService } from '../../test_helpers/index.js'
+import { getCacheService } from '../helpers.js'
 
 test.group('CacheClear', () => {
   test('Clear default cache', async ({ fs, assert }) => {
@@ -18,7 +18,7 @@ test.group('CacheClear', () => {
     await ace.app.init()
 
     const cache = getCacheService()
-    ace.app.container.singleton('cache', () => cache)
+    ace.app.container.singleton('cache.manager', () => cache)
     ace.ui.switchMode('raw')
 
     await cache.set('foo', 'bar')
@@ -37,7 +37,7 @@ test.group('CacheClear', () => {
     await ace.app.init()
 
     const cache = getCacheService()
-    ace.app.container.singleton('cache', () => cache)
+    ace.app.container.singleton('cache.manager', () => cache)
     ace.ui.switchMode('raw')
 
     const memoryStore = cache.use('memory')
@@ -71,7 +71,7 @@ test.group('CacheClear', () => {
     ace.ui.switchMode('raw')
 
     const cache = getCacheService()
-    ace.app.container.singleton('cache', () => cache)
+    ace.app.container.singleton('cache.manager', () => cache)
 
     await cache.set('foo', 'bar')
     cleanup(() => cache.clear())
@@ -100,7 +100,7 @@ test.group('CacheClear', () => {
     ace.ui.switchMode('raw')
 
     const cache = getCacheService()
-    ace.app.container.singleton('cache', () => cache)
+    ace.app.container.singleton('cache.manager', () => cache)
 
     await cache.set('foo', 'bar')
     cleanup(() => cache.clear())
@@ -124,7 +124,7 @@ test.group('CacheClear', () => {
     ace.ui.switchMode('raw')
 
     const cache = getCacheService()
-    ace.app.container.singleton('cache', () => cache)
+    ace.app.container.singleton('cache.manager', () => cache)
 
     const command = await ace.create(CacheClear, [])
     command.store = 'foo'

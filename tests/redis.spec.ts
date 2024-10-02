@@ -11,7 +11,7 @@ import { test } from '@japa/runner'
 import { setTimeout } from 'node:timers/promises'
 import { defineConfig as defineRedisConfig } from '@adonisjs/redis'
 
-import { setupApp } from '../test_helpers/index.js'
+import { setupApp } from './helpers.js'
 import { defineConfig, drivers, store } from '../index.js'
 
 test.group('Redis', () => {
@@ -30,7 +30,7 @@ test.group('Redis', () => {
     })
 
     const redis = await app.container.make('redis')
-    const cache = await app.container.make('cache')
+    const cache = await app.container.make('cache.manager')
 
     await cache.set('foo', 'bar')
     await redis.set('bentocache:foo', 'bar')
@@ -56,7 +56,7 @@ test.group('Redis', () => {
     })
 
     const redis = await app.container.make('redis')
-    const cache = await app.container.make('cache')
+    const cache = await app.container.make('cache.manager')
 
     await cache.set('foo', 'bar')
 
@@ -87,7 +87,7 @@ test.group('Redis', () => {
     const app = await setupApp('web', config)
 
     const redis = await app.container.make('redis')
-    const cache = await app.container.make('cache')
+    const cache = await app.container.make('cache.manager')
 
     redis.subscribe('bentocache.notifications', () => assert.isTrue(true))
 

@@ -16,7 +16,7 @@ let cache: CacheService
  * Returns a singleton instance of the Cache manager
  */
 await app.booted(async () => {
-  cache = await app.container.make('cache')
+  cache = await app.container.make('cache.manager')
 })
 
 export { cache as default }

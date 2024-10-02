@@ -22,7 +22,7 @@ declare module '@adonisjs/core/types' {
    * Adding cache type to the application container
    */
   export interface ContainerBindings {
-    cache: CacheService
+    'cache.manager': CacheService
   }
 
   /**
@@ -51,7 +51,7 @@ export default class CacheProvider {
   async #registerCacheManager() {
     const cacheConfig = this.app.config.get<ReturnType<typeof defineConfig>>('cache')
 
-    this.app.container.singleton('cache', async () => {
+    this.app.container.singleton('cache.manager', async () => {
       const { BentoCache } = await import('bentocache')
       const emitter = await this.app.container.make('emitter')
 
@@ -95,7 +95,7 @@ export default class CacheProvider {
    * Disconnect all cache stores when shutting down the app
    */
   async shutdown() {
-    const cache = await this.app.container.make('cache')
+    const cache = await this.app.container.make('cache.manager')
     await cache.disconnectAll().catch(() => {})
   }
 }

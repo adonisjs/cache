@@ -54,7 +54,7 @@ export default class CacheClear extends BaseCommand {
    * Handle command
    */
   async run() {
-    const cache = await this.app.container.make('cache')
+    const cache = await this.app.container.make('cache.manager')
     this.store = this.store || cache.defaultStoreName
 
     /**
