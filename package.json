@@ -51,6 +51,7 @@
     "@japa/file-system": "^2.3.0",
     "@japa/runner": "^3.1.4",
     "@japa/snapshot": "^2.0.6",
+    "@release-it/conventional-changelog": "^8.0.2",
     "@swc/core": "^1.7.26",
     "@types/node": "^22.7.4",
     "better-sqlite3": "^11.3.0",
@@ -94,14 +95,26 @@
   "prettier": "@adonisjs/prettier-config",
   "release-it": {
     "git": {
+      "requireCleanWorkingDir": true,
+      "requireUpstream": true,
       "commitMessage": "chore(release): ${version}",
       "tagAnnotation": "v${version}",
+      "push": true,
       "tagName": "v${version}"
     },
     "github": {
-      "release": true,
-      "releaseName": "v${version}",
-      "web": true
+      "release": true
+    },
+    "npm": {
+      "publish": true,
+      "skipChecks": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": {
+          "name": "angular"
+        }
+      }
     }
   },
   "c8": {
