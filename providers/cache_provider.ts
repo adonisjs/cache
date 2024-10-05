@@ -102,12 +102,4 @@ export default class CacheProvider {
     this.#registerReplBindings()
     this.#registerEdgeBindings()
   }
-
-  /**
-   * Disconnect all cache stores when shutting down the app
-   */
-  async shutdown() {
-    const cache = await this.app.container.make('cache.manager')
-    await cache.disconnectAll().catch(() => {})
-  }
 }
