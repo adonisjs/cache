@@ -16,7 +16,7 @@ const cacheConfig = defineConfig({
     }))
     {{#elif driver === 'redis'}}
     redis: store().useL2Layer(drivers.redis({
-      connectionName: 'primary',
+      connectionName: 'main',
     }))
     {{#elif driver === 'memory'}}
     memory: store().useL1Layer(drivers.memory())
