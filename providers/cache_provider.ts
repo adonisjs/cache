@@ -13,6 +13,7 @@ import { defineConfig } from '../index.js'
 import type { CacheEvents } from 'bentocache/types'
 import type { CacheService } from '../src/types.js'
 import { defineReplBindings } from '../src/bindings/repl.js'
+import { registerViewBindings } from '../src/bindings/edge.js'
 
 /**
  * Extend Adonis.js types to include cache
@@ -84,11 +85,22 @@ export default class CacheProvider {
   }
 
   /**
+   * Register edge bindings
+   */
+  async #registerEdgeBindings() {
+    if (!this.app.usingEdgeJS) return
+
+    const manager = await this.app.container.make('cache.manager')
+    registerViewBindings(manager)
+  }
+
+  /**
    * Register bindings
    */
   async register() {
     this.#registerCacheManager()
     this.#registerReplBindings()
+    this.#registerEdgeBindings()
   }
 
   /**

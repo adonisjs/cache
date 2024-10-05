@@ -29,11 +29,7 @@ export function defineReplBindings(app: ApplicationService, Repl: Repl) {
    */
   Repl.addMethod(
     'loadCache',
-    async (repl) => {
-      setupReplState(repl, 'cache', await app.container.make('cache.manager'))
-    },
-    {
-      description: 'Load cache provider to the "cache" property',
-    }
+    async (repl) => setupReplState(repl, 'cache', await app.container.make('cache.manager')),
+    { description: 'Load cache provider to the "cache" property' }
   )
 }

@@ -7,6 +7,8 @@
  * file that was distributed with this source code.
  */
 
+export * from 'bentocache/types'
+
 import type { BentoCache, bentostore } from 'bentocache'
 import type { RawBentoCacheOptions } from 'bentocache/types'
 
