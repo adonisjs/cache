@@ -12,7 +12,7 @@ import { CacheService } from '../types.js'
 
 export async function registerViewBindings(manager: CacheService) {
   const edge = await import('edge.js')
-  debug('detected edge installation. Registering drive global helpers')
+  debug('detected edge installation. Registering cache global helpers')
 
   edge.default.global('cache', manager)
 }

@@ -31,7 +31,7 @@ import {
  * Different drivers supported by the cache module
  */
 export const drivers: {
-  memory: (config: MemoryConfig) => ConfigProvider<CreateDriverResult<L1CacheDriver>>
+  memory: (config?: MemoryConfig) => ConfigProvider<CreateDriverResult<L1CacheDriver>>
   redis: (config: {
     connectionName?: keyof RedisConnections
   }) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
