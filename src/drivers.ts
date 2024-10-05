@@ -23,6 +23,8 @@ import {
   CreateBusDriverResult,
   DynamoDBConfig,
   FileConfig,
+  KyselyConfig,
+  OrchidConfig,
 } from 'bentocache/types'
 
 /**
@@ -41,6 +43,8 @@ export const drivers: {
   }) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
   dynamodb: (config: DynamoDBConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
   file: (config: FileConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
+  kysely: (config: KyselyConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
+  orchid: (config: OrchidConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
 } = {
   /**
    * Redis driver for L2 layer
@@ -138,6 +142,26 @@ export const drivers: {
     return configProvider.create(async () => {
       const { fileDriver } = await import('bentocache/drivers/file')
       return fileDriver(config)
+    })
+  },
+
+  /**
+   * Kysely driver for L2 layer
+   */
+  kysely(config) {
+    return configProvider.create(async () => {
+      const { kyselyDriver } = await import('bentocache/drivers/kysely')
+      return kyselyDriver(config)
+    })
+  },
+
+  /**
+   * Orchid driver for L2 layer
+   */
+  orchid(config) {
+    return configProvider.create(async () => {
+      const { orchidDriver } = await import('bentocache/drivers/orchid')
+      return orchidDriver(config)
     })
   },
 }
