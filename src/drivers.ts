@@ -97,7 +97,7 @@ export const drivers: {
       /**
        * We only support pg, mysql, better-sqlite3 and sqlite3 dialects for now
        */
-      const supportedDialects = ['pg', 'mysql', 'better-sqlite3', 'sqlite3']
+      const supportedDialects = ['pg', 'postgres', 'mysql', 'better-sqlite3', 'sqlite3']
       if (!supportedDialects.includes(dialect)) {
         throw new Error(`Unsupported dialect "${dialect}"`)
       }
@@ -116,7 +116,7 @@ export const drivers: {
       const { default: knex } = await import('knex')
       const knexClient = knex({
         ...rawConnection.config,
-        client: dialect === 'postgres' ? 'pg' : (dialect as DialectName),
+        client: ['postgres', 'pg'].includes(dialect) ? 'pg' : (dialect as DialectName),
       })
 
       const { knexDriver } = await import('bentocache/drivers/knex')
