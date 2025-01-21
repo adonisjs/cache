@@ -8,7 +8,7 @@
 Cache module for AdonisJS built on top of BentoCache. Support multiples drivers, File, In-Memory, Redis, SQLs databases and more.
 
 ## Official Documentation
-The documentation is available on the [AdonisJS website](https://docs.adonisjs.com/guides/cache/introduction).
+The documentation is available on the [AdonisJS website](https://docs.adonisjs.com/guides/digging-deeper/cache).
 
 ## Contributing
 One of the primary goals of AdonisJS is to have a vibrant community of users and contributors who believes in the principles of the framework.
