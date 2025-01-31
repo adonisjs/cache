@@ -89,7 +89,7 @@ test.group('Redis', () => {
     const redis = await app.container.make('redis')
     const cache = await app.container.make('cache.manager')
 
-    redis.subscribe('bentocache.notifications', () => assert.isTrue(true))
+    redis.subscribe('bentocache.notifications:redis', () => assert.isTrue(true))
 
     await setTimeout(200)
     await cache.set('foo', 'bar')
