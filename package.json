@@ -97,6 +97,18 @@
     "caching",
     "bentocache"
   ],
+  "homepage": "https://github.com/adonisjs/cache#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adonisjs/cache.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adonisjs/cache/issues"
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
+  },
   "prettier": "@adonisjs/prettier-config",
   "release-it": {
     "git": {
