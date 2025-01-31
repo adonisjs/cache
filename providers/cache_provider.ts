@@ -91,15 +91,15 @@ export default class CacheProvider {
     if (!this.app.usingEdgeJS) return
 
     const manager = await this.app.container.make('cache.manager')
-    registerViewBindings(manager)
+    await registerViewBindings(manager)
   }
 
   /**
    * Register bindings
    */
   async register() {
-    this.#registerCacheManager()
-    this.#registerReplBindings()
-    this.#registerEdgeBindings()
+    await this.#registerCacheManager()
+    await this.#registerReplBindings()
+    await this.#registerEdgeBindings()
   }
 }
