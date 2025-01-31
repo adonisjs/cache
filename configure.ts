@@ -42,14 +42,13 @@ const DRIVERS_INFO: {
  * Configures the package
  */
 export async function configure(command: Configure) {
-  const driver = await command.prompt.choice(
+  const selectedDrivers = await command.prompt.multiple(
     'Select the cache driver you plan to use',
     ['redis', 'file', 'memory', 'database', 'dynamodb'],
     {
       hint: 'You can always change it later',
     }
   )
-  const { envVars, envValidations } = DRIVERS_INFO[driver]
 
   const codemods = await command.createCodemods()
 
@@ -60,22 +59,26 @@ export async function configure(command: Configure) {
     rcFile.addProvider('@adonisjs/cache/cache_provider').addCommand('@adonisjs/cache/commands')
   })
 
-  /**
-   * Define environment variables
-   */
-  if (envVars) {
-    codemods.defineEnvVariables(envVars)
-  }
+  for (const driver of selectedDrivers) {
+    const { envVars, envValidations } = DRIVERS_INFO[driver]
 
-  /**
-   * Define environment validations
-   */
-  if (envValidations) {
-    codemods.defineEnvValidations({ variables: envValidations })
-  }
+    /**
+     * Define environment variables
+     */
+    if (envVars) {
+      await codemods.defineEnvVariables(envVars)
+    }
 
-  /**
-   * Publish config
-   */
-  await codemods.makeUsingStub(stubsRoot, 'config.stub', { driver: driver })
+    /**
+     * Define environment validations
+     */
+    if (envValidations) {
+      await codemods.defineEnvValidations({ variables: envValidations })
+    }
+
+    /**
+     * Publish config
+     */
+    await codemods.makeUsingStub(stubsRoot, 'config.stub', { driver: driver })
+  }
 }
