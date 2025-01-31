@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.x', '21.x']
+        node-version: ["lts/iron", "lts/jod", "latest"]
     timeout-minutes: 10
     services:
       redis:
