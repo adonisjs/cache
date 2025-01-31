@@ -86,7 +86,10 @@
       "optional": true
     }
   },
-  "author": "adonisjs, Julien Ripouteau",
+  "author": "Julien Ripouteau <julien@ripouteau.com>",
+  "contributors": [
+    "Romain Lanz <romain.lanz@pm.me>"
+  ],
   "license": "MIT",
   "keywords": [
     "adonisjs",
