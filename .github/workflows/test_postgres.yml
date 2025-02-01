@@ -1,0 +1,50 @@
+name: Test Postgres
+
+on:
+  - workflow_call
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node-version: ["lts/iron", "lts/jod", "latest"]
+        redis-version: ["7-alpine"]
+        postgres-version: [ "15-alpine", "16-alpine", "17-alpine"]
+        mysql-version: ["latest"]
+
+    services:
+      redis:
+        image: redis:${{ matrix.redis-version }}
+        ports:
+          - 6379:6379
+      postgres:
+        image: postgres:${{ matrix.postgres-version }}
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+      mysql:
+        image: mysql:${{ matrix.mysql-version }}
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: mysql
+        ports:
+          - 3306:3306
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: npm install
+
+      - name: Test
+        run: FORCE_COLOR=1 npm test
