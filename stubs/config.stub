@@ -8,32 +8,35 @@ import app from '@adonisjs/core/services/app'
 import { defineConfig, store, drivers } from '@adonisjs/cache'
 
 const cacheConfig = defineConfig({
-  default: '{{ driver }}',
+  default: 'default',
+
   stores: {
+    memoryOnly: store().useL1Layer(drivers.memory()),
+
+    default: store()
+      .useL1Layer(drivers.memory())
     {{#if driver === 'database'}}
-    database: store().useL2Layer(drivers.database({
-      connectionName: 'primary',
-    }))
+      .useL2Layer(drivers.database({
+        connectionName: 'primary',
+      }))
     {{#elif driver === 'redis'}}
-    redis: store().useL2Layer(drivers.redis({
-      connectionName: 'main',
-    }))
-    {{#elif driver === 'memory'}}
-    memory: store().useL1Layer(drivers.memory())
+      .useL2Layer(drivers.redis({
+        connectionName: 'main',
+      }))
     {{#elif driver === 'file'}}
-    file: store().useL2Layer(drivers.file({
-      directory: app.tmpPath('cache')
-    }))
+      .useL2Layer(drivers.file({
+        directory: app.tmpPath('cache')
+      }))
     {{#elif driver === 'dynamodb'}}
-    dynamodb: store().useL2Layer(drivers.dynamodb({
-      table: { name: 'cache' },
-      credentials: {
-        accessKeyId: env.get('AWS_ACCESS_KEY_ID'),
-        secretAccessKey: env.get('AWS_SECRET_ACCESS_KEY')
-      },
-      region: env.get('AWS_REGION'),
-      endpoint: env.get('DYNAMODB_ENDPOINT')
-    }))
+      .useL2Layer(drivers.dynamodb({
+        table: { name: 'cache' },
+        credentials: {
+          accessKeyId: env.get('AWS_ACCESS_KEY_ID'),
+          secretAccessKey: env.get('AWS_SECRET_ACCESS_KEY')
+        },
+        region: env.get('AWS_REGION'),
+        endpoint: env.get('DYNAMODB_ENDPOINT')
+      }))
     {{/if}}
   }
 })

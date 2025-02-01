@@ -102,7 +102,7 @@ test.group('Configure', (group) => {
     await app.init().then(() => app.boot())
 
     const ace = await app.container.make('ace')
-    ace.prompt.trap('Select the cache driver you plan to use').chooseOption(4)
+    ace.prompt.trap('Select the cache driver you plan to use').chooseOption(3)
     ace.ui.switchMode('raw')
 
     const command = await ace.create(Configure, ['../../index.js'])

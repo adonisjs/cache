@@ -11,7 +11,7 @@ import type Configure from '@adonisjs/core/commands/configure'
 
 import { stubsRoot } from './stubs/main.js'
 
-const DRIVERS = ['redis', 'file', 'memory', 'database', 'dynamodb'] as const
+const DRIVERS = ['redis', 'file', 'database', 'dynamodb'] as const
 const DRIVERS_INFO: {
   [K in (typeof DRIVERS)[number]]: {
     envVars?: Record<string, number | string>
@@ -19,7 +19,6 @@ const DRIVERS_INFO: {
   }
 } = {
   file: {},
-  memory: {},
   redis: {},
   database: {},
   dynamodb: {
@@ -42,9 +41,9 @@ const DRIVERS_INFO: {
  * Configures the package
  */
 export async function configure(command: Configure) {
-  const selectedDrivers = await command.prompt.multiple(
+  const driver = await command.prompt.choice(
     'Select the cache driver you plan to use',
-    ['redis', 'file', 'memory', 'database', 'dynamodb'],
+    ['redis', 'file', 'database', 'dynamodb'],
     {
       hint: 'You can always change it later',
     }
@@ -59,26 +58,24 @@ export async function configure(command: Configure) {
     rcFile.addProvider('@adonisjs/cache/cache_provider').addCommand('@adonisjs/cache/commands')
   })
 
-  for (const driver of selectedDrivers) {
-    const { envVars, envValidations } = DRIVERS_INFO[driver]
+  const { envVars, envValidations } = DRIVERS_INFO[driver]
 
-    /**
-     * Define environment variables
-     */
-    if (envVars) {
-      await codemods.defineEnvVariables(envVars)
-    }
-
-    /**
-     * Define environment validations
-     */
-    if (envValidations) {
-      await codemods.defineEnvValidations({ variables: envValidations })
-    }
-
-    /**
-     * Publish config
-     */
-    await codemods.makeUsingStub(stubsRoot, 'config.stub', { driver: driver })
+  /**
+   * Define environment variables
+   */
+  if (envVars) {
+    await codemods.defineEnvVariables(envVars)
   }
+
+  /**
+   * Define environment validations
+   */
+  if (envValidations) {
+    await codemods.defineEnvValidations({ variables: envValidations })
+  }
+
+  /**
+   * Publish config
+   */
+  await codemods.makeUsingStub(stubsRoot, 'config.stub', { driver: driver })
 }
