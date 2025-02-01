@@ -43,7 +43,7 @@
     "@adonisjs/eslint-config": "^2.0.0-beta.7",
     "@adonisjs/lucid": "^21.6.0",
     "@adonisjs/prettier-config": "^1.4.0",
-    "@adonisjs/redis": "^9.1.0",
+    "@adonisjs/redis": "^9.1.1",
     "@adonisjs/tsconfig": "^1.4.0",
     "@japa/assert": "^4.0.1",
     "@japa/expect-type": "^2.0.3",
