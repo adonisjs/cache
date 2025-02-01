@@ -102,4 +102,16 @@ export default class CacheProvider {
     await this.#registerReplBindings()
     await this.#registerEdgeBindings()
   }
+
+  /**
+   * Gracefully shutdown connections when app goes down
+   */
+  async shutdown() {
+    try {
+      const cache = await this.app.container.make('cache.manager')
+      await cache.disconnectAll()
+    } catch (_e) {
+      // Ignore errors
+    }
+  }
 }
