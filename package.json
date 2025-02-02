@@ -150,7 +150,8 @@
       "index.ts",
       "src/types.ts",
       "providers/cache_provider.ts",
-      "services/main.ts"
+      "services/main.ts",
+      "commands/cache_clear.ts"
     ],
     "outDir": "./build",
     "clean": true,
