@@ -21,13 +21,13 @@ test.group('CacheClear', () => {
     ace.app.container.singleton('cache.manager', () => cache)
     ace.ui.switchMode('raw')
 
-    await cache.set('foo', 'bar')
-    assert.equal(await cache.get('foo'), 'bar')
+    await cache.set({ key: 'foo', value: 'bar' })
+    assert.equal(await cache.get({ key: 'foo' }), 'bar')
 
     const command = await ace.create(CacheClear, [])
     await command.run()
 
-    assert.isUndefined(await cache.get('foo'))
+    assert.isUndefined(await cache.get({ key: 'foo' }))
 
     command.assertLog(`[ green(success) ] Cleared "${cache.defaultStoreName}" cache successfully`)
   })
@@ -41,14 +41,14 @@ test.group('CacheClear', () => {
     ace.ui.switchMode('raw')
 
     const memoryStore = cache.use('memory')
-    await memoryStore.set('foo', 'bar')
-    assert.equal(await memoryStore.get('foo'), 'bar')
+    await memoryStore.set({ key: 'foo', value: 'bar' })
+    assert.equal(await memoryStore.get({ key: 'foo' }), 'bar')
 
     const command = await ace.create(CacheClear, [])
     command.store = 'memory'
     await command.run()
 
-    assert.isUndefined(await memoryStore.get('foo'))
+    assert.isUndefined(await memoryStore.get({ key: 'foo' }))
 
     command.assertLog(`[ green(success) ] Cleared "memory" cache successfully`)
   })
@@ -73,7 +73,7 @@ test.group('CacheClear', () => {
     const cache = getCacheService()
     ace.app.container.singleton('cache.manager', () => cache)
 
-    await cache.set('foo', 'bar')
+    await cache.set({ key: 'foo', value: 'bar' })
     cleanup(() => cache.clear())
 
     const command = await ace.create(CacheClear, [])
@@ -83,7 +83,7 @@ test.group('CacheClear', () => {
 
     await command.run()
 
-    assert.equal(await cache.get('foo'), 'bar')
+    assert.equal(await cache.get({ key: 'foo' }), 'bar')
   })
 
   test('clear cache when user confirms production prompt', async ({ fs, assert, cleanup }) => {
@@ -102,7 +102,7 @@ test.group('CacheClear', () => {
     const cache = getCacheService()
     ace.app.container.singleton('cache.manager', () => cache)
 
-    await cache.set('foo', 'bar')
+    await cache.set({ key: 'foo', value: 'bar' })
     cleanup(() => cache.clear())
 
     const command = await ace.create(CacheClear, [])
@@ -112,7 +112,7 @@ test.group('CacheClear', () => {
 
     await command.run()
 
-    assert.isUndefined(await cache.get('foo'))
+    assert.isUndefined(await cache.get({ key: 'foo' }))
   })
 
   test('exit when user specify a non-existing cache store', async ({ fs, assert }) => {

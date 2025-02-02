@@ -19,7 +19,7 @@ test.group('Provider', () => {
     const cache = await app.container.make('cache.manager')
     const emitter = await app.container.make('emitter')
 
-    cache.set('foo', 'bar')
+    cache.set({ key: 'foo', value: 'bar' })
 
     const event = await pEvent(emitter, 'cache:written')
     assert.deepEqual(event, { key: 'foo', value: 'bar', store: 'memory' })
@@ -39,7 +39,7 @@ test.group('Provider', () => {
     const app = await setupApp()
     const cache = await app.container.make('cache.manager')
 
-    await cache.use('redis').get('foo')
+    await cache.use('redis').get({ key: 'foo' })
 
     await app.terminate()
   })

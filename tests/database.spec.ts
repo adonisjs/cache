@@ -54,7 +54,7 @@ test.group('Database', () => {
       .where('key', 'bentocache:foo')
       .firstOrFail()
 
-    const r2 = await cache.get('foo')
+    const r2 = await cache.get({ key: 'foo' })
 
     assert.deepEqual(JSON.parse(r1.value).value, 'bar')
     assert.equal(r2, 'bar')
@@ -90,7 +90,7 @@ test.group('Database', () => {
     const db = await app.container.make('lucid.db')
     const cache = await app.container.make('cache.manager')
 
-    await cache.set('foo', 'bar')
+    await cache.set({ key: 'foo', value: 'bar' })
 
     const r1 = await db
       .connection('sqlite')
