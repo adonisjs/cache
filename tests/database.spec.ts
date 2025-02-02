@@ -118,7 +118,7 @@ test.group('Database', () => {
         client: 'mysql2',
         connection: {
           host: 'localhost',
-          port: 3306,
+          port: 3307,
           user: 'root',
           password: 'root',
           database: 'mysql',
@@ -175,4 +175,5 @@ test.group('Database', () => {
 
       assert.deepEqual(JSON.parse(r1.value).value, 'bar')
     })
+    .skip(!process.env.CI)
 })
