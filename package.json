@@ -70,7 +70,7 @@
     "typescript": "~5.7.3"
   },
   "dependencies": {
-    "bentocache": "^1.0.0-beta.13"
+    "bentocache": "^1.0.0"
   },
   "peerDependencies": {
     "@adonisjs/assembler": "^7.0.0",
