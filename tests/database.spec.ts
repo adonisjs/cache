@@ -108,7 +108,7 @@ test.group('Database', () => {
         client: 'mysql',
         connection: {
           host: 'localhost',
-          port: 3307,
+          port: 3306,
           user: 'root',
           password: 'root',
           database: 'mysql',
@@ -118,7 +118,7 @@ test.group('Database', () => {
         client: 'mysql2',
         connection: {
           host: 'localhost',
-          port: 3307,
+          port: 3306,
           user: 'root',
           password: 'root',
           database: 'mysql',
