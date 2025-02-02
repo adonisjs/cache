@@ -19,13 +19,13 @@ import {
   CreateDriverResult,
   L1CacheDriver,
   L2CacheDriver,
-  DialectName,
   CreateBusDriverResult,
   DynamoDBConfig,
   FileConfig,
   KyselyConfig,
   OrchidConfig,
 } from 'bentocache/types'
+import { RuntimeException } from '@adonisjs/core/exceptions'
 
 /**
  * Different drivers supported by the cache module
@@ -92,35 +92,20 @@ export const drivers: {
     return configProvider.create(async (app) => {
       const db = await app.container.make('lucid.db')
       const connectionName = config?.connectionName || db.primaryConnectionName
-      const dialect = db.connection(connectionName).dialect.name
+      const connection = db.manager.get(connectionName)
 
       /**
-       * We only support pg, mysql, better-sqlite3 and sqlite3 dialects for now
+       * Throw error when mentioned connection is not specified
+       * in the database file
        */
-      const supportedDialects = ['pg', 'postgres', 'mysql', 'better-sqlite3', 'sqlite3']
-      if (!supportedDialects.includes(dialect)) {
-        throw new Error(`Unsupported dialect "${dialect}"`)
+      if (!connection) {
+        throw new RuntimeException(
+          `Invalid connection name "${connectionName}" referenced by "config/cache.ts" file. First register the connection inside "config/database.ts" file`
+        )
       }
-
-      /**
-       * Get the knex connection for the given connection name
-       */
-      const rawConnection = db.getRawConnection(connectionName)
-      if (!rawConnection?.connection?.client) {
-        throw new Error(`Unable to get raw connection for "${connectionName}"`)
-      }
-
-      /**
-       * Create the driver
-       */
-      const { default: knex } = await import('knex')
-      const knexClient = knex({
-        ...rawConnection.config,
-        client: ['postgres', 'pg'].includes(dialect) ? 'pg' : (dialect as DialectName),
-      })
 
       const { knexDriver } = await import('bentocache/drivers/knex')
-      return knexDriver({ connection: knexClient })
+      return knexDriver({ connection: db.connection(connectionName).getWriteClient() })
     })
   },
 
