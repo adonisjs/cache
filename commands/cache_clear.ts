@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { BaseCommand, flags } from '@adonisjs/core/ace'
+import { args, BaseCommand } from '@adonisjs/core/ace'
 
 import { CacheService } from '../src/types.js'
 import { CommandOptions } from '@adonisjs/core/types/ace'
@@ -23,7 +23,7 @@ export default class CacheClear extends BaseCommand {
    * Choose a custom cache store to clear. Otherwise, we use the
    * default one
    */
-  @flags.string({ description: 'Define a custom cache store to clear', alias: 's' })
+  @args.string({ description: 'Define a custom cache store to clear', required: false })
   declare store: string
 
   /**
@@ -58,7 +58,7 @@ export default class CacheClear extends BaseCommand {
     this.store = this.store || cache.defaultStoreName
 
     /**
-     * Exit if cache store doesn't exists
+     * Exit if cache store doesn't exist
      */
     if (!this.#cacheExists(cache, this.store)) {
       this.logger.error(
