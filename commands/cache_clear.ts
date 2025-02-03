@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { args, BaseCommand } from '@adonisjs/core/ace'
+import { args, BaseCommand, flags } from '@adonisjs/core/ace'
 
 import { CacheService } from '../src/types.js'
 import { CommandOptions } from '@adonisjs/core/types/ace'
@@ -25,6 +25,12 @@ export default class CacheClear extends BaseCommand {
    */
   @args.string({ description: 'Define a custom cache store to clear', required: false })
   declare store: string
+
+  /**
+   * Optionally select a namespace to clear. Defaults to the whole cache.
+   */
+  @flags.string({ description: 'Select a cache namespace to clear', alias: 'n' })
+  declare namespace: string
 
   /**
    * Prompts to take consent when clearing the cache in production
@@ -79,7 +85,15 @@ export default class CacheClear extends BaseCommand {
     /**
      * Finally clear the cache
      */
-    await cache.use(this.store).clear()
-    this.logger.success(`Cleared "${this.store}" cache successfully`)
+    const cacheHandler = cache.use(this.store)
+    if (this.namespace) {
+      await cacheHandler.namespace(this.namespace).clear()
+      this.logger.success(
+        `Cleared namespace "${this.namespace}" for "${this.store}" cache successfully`
+      )
+    } else {
+      await cacheHandler.clear()
+      this.logger.success(`Cleared "${this.store}" cache successfully`)
+    }
   }
 }

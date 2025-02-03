@@ -136,4 +136,30 @@ test.group('CacheClear', () => {
     )
     assert.equal(command.exitCode, 1)
   })
+
+  test('Clear a specific namespace in the default cache', async ({ fs, assert }) => {
+    const ace = await new AceFactory().make(fs.baseUrl, { importer: () => {} })
+    await ace.app.init()
+
+    const cache = getCacheService()
+    ace.app.container.singleton('cache.manager', () => cache)
+    ace.ui.switchMode('raw')
+
+    await cache.set({ key: 'foo', value: 'bar' })
+    assert.equal(await cache.get({ key: 'foo' }), 'bar')
+
+    await cache.namespace('users').set({ key: 'foo', value: 'bar' })
+    assert.equal(await cache.namespace('users').get({ key: 'foo' }), 'bar')
+
+    const command = await ace.create(CacheClear, [])
+    command.namespace = 'users'
+    await command.run()
+
+    assert.equal(await cache.get({ key: 'foo' }), 'bar')
+    assert.isUndefined(await cache.namespace('users').get({ key: 'foo' }))
+
+    command.assertLog(
+      `[ green(success) ] Cleared namespace "users" for "${cache.defaultStoreName}" cache successfully`
+    )
+  })
 })
