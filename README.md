@@ -5,7 +5,7 @@
 [![gh-workflow-image]][gh-workflow-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url]
 
 ## Introduction
-Cache module for AdonisJS built on top of [BentoCache](https://github.com/Julien-R44/bentocache). Support multiples drivers, File, In-Memory, Redis, SQLs databases and more.
+Cache module for AdonisJS built on top of [Bentocache](https://github.com/Julien-R44/bentocache). Support multiples drivers, File, In-Memory, Redis, SQLs databases and more.
 
 ## Official Documentation
 The documentation is available on the [AdonisJS website](https://docs.adonisjs.com/guides/digging-deeper/cache).
