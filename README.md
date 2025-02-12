@@ -19,7 +19,7 @@ We encourage you to read the [contribution guide](https://github.com/adonisjs/.g
 In order to ensure that the AdonisJS community is welcoming to all, please review and abide by the [Code of Conduct](https://github.com/adonisjs/.github/blob/main/docs/CODE_OF_CONDUCT.md).
 
 ## License
-AdonisJS Lucid is open-sourced software licensed under the [MIT license](LICENSE.md).
+AdonisJS Cache is open-sourced software licensed under the [MIT license](LICENSE.md).
 
 [gh-workflow-image]: https://img.shields.io/github/actions/workflow/status/adonisjs/cache/checks.yml?branch=1.x&style=for-the-badge
 [gh-workflow-url]: https://github.com/adonisjs/cache/actions/workflows/checks.yml "Github action"
