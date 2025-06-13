@@ -33,6 +33,12 @@ export default class CacheClear extends BaseCommand {
   declare namespace: string
 
   /**
+   * Optionally specify tags to invalidate. Can be used multiple times.
+   */
+  @flags.array({ description: 'Specify tags to invalidate', alias: 't' })
+  declare tags: string[]
+
+  /**
    * Prompts to take consent when clearing the cache in production
    */
   async #takeProductionConsent(): Promise<boolean> {
@@ -75,6 +81,17 @@ export default class CacheClear extends BaseCommand {
     }
 
     /**
+     * Validate that namespace and tags are not used together
+     */
+    if (this.namespace && this.tags && this.tags.length > 0) {
+      this.logger.error(
+        'Cannot use --namespace and --tags options together. Please choose one or the other.'
+      )
+      this.exitCode = 1
+      return
+    }
+
+    /**
      * Take consent when clearing the cache in production
      */
     if (this.app.inProduction) {
@@ -86,7 +103,13 @@ export default class CacheClear extends BaseCommand {
      * Finally clear the cache
      */
     const cacheHandler = cache.use(this.store)
-    if (this.namespace) {
+
+    if (this.tags && this.tags.length > 0) {
+      await cacheHandler.deleteByTag({ tags: this.tags })
+      this.logger.success(
+        `Invalidated tags [${this.tags.join(', ')}] for "${this.store}" cache successfully`
+      )
+    } else if (this.namespace) {
       await cacheHandler.namespace(this.namespace).clear()
       this.logger.success(
         `Cleared namespace "${this.namespace}" for "${this.store}" cache successfully`

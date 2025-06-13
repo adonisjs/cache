@@ -162,4 +162,85 @@ test.group('CacheClear', () => {
       `[ green(success) ] Cleared namespace "users" for "${cache.defaultStoreName}" cache successfully`
     )
   })
+
+  test('Clear cache by tags', async ({ fs, assert }) => {
+    const ace = await new AceFactory().make(fs.baseUrl, { importer: () => {} })
+    await ace.app.init()
+
+    const cache = getCacheService()
+    ace.app.container.singleton('cache.manager', () => cache)
+    ace.ui.switchMode('raw')
+
+    await cache.set({ key: 'user:1', value: 'john', tags: ['users', 'active'] })
+    await cache.set({ key: 'user:2', value: 'jane', tags: ['users', 'inactive'] })
+    await cache.set({ key: 'product:1', value: 'laptop', tags: ['products', 'electronics'] })
+
+    assert.equal(await cache.get({ key: 'user:1' }), 'john')
+    assert.equal(await cache.get({ key: 'user:2' }), 'jane')
+    assert.equal(await cache.get({ key: 'product:1' }), 'laptop')
+
+    const command = await ace.create(CacheClear, [])
+    command.tags = ['users']
+    await command.run()
+
+    // Entries with 'users' tag should be invalidated
+    assert.isUndefined(await cache.get({ key: 'user:1' }))
+    assert.isUndefined(await cache.get({ key: 'user:2' }))
+    // Entry with different tag should remain
+    assert.equal(await cache.get({ key: 'product:1' }), 'laptop')
+
+    command.assertLog(
+      `[ green(success) ] Invalidated tags [users] for "${cache.defaultStoreName}" cache successfully`
+    )
+  })
+
+  test('Clear cache by multiple tags', async ({ fs, assert }) => {
+    const ace = await new AceFactory().make(fs.baseUrl, { importer: () => {} })
+    await ace.app.init()
+
+    const cache = getCacheService()
+    ace.app.container.singleton('cache.manager', () => cache)
+    ace.ui.switchMode('raw')
+
+    // Set entries with different tags
+    await cache.set({ key: 'user:1', value: 'john', tags: ['users', 'active'] })
+    await cache.set({ key: 'user:2', value: 'jane', tags: ['users', 'inactive'] })
+    await cache.set({ key: 'product:1', value: 'laptop', tags: ['products', 'electronics'] })
+    await cache.set({ key: 'category:1', value: 'tech', tags: ['categories'] })
+
+    const command = await ace.create(CacheClear, [])
+    command.tags = ['users', 'products']
+    await command.run()
+
+    // Entries with 'users' or 'products' tags should be invalidated
+    assert.isUndefined(await cache.get({ key: 'user:1' }))
+    assert.isUndefined(await cache.get({ key: 'user:2' }))
+    assert.isUndefined(await cache.get({ key: 'product:1' }))
+    // Entry with different tag should remain
+    assert.equal(await cache.get({ key: 'category:1' }), 'tech')
+
+    command.assertLog(
+      `[ green(success) ] Invalidated tags [users, products] for "${cache.defaultStoreName}" cache successfully`
+    )
+  })
+
+  test('should error when both namespace and tags are specified', async ({ fs, assert }) => {
+    const ace = await new AceFactory().make(fs.baseUrl, { importer: () => {} })
+    await ace.app.init()
+
+    const cache = getCacheService()
+    ace.app.container.singleton('cache.manager', () => cache)
+    ace.ui.switchMode('raw')
+
+    const command = await ace.create(CacheClear, [])
+    command.namespace = 'users'
+    command.tags = ['active']
+
+    await command.run()
+
+    command.assertLog(
+      '[ red(error) ] Cannot use --namespace and --tags options together. Please choose one or the other.'
+    )
+    assert.equal(command.exitCode, 1)
+  })
 })
