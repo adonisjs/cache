@@ -22,6 +22,8 @@ import {
   CreateBusDriverResult,
   DynamoDBConfig,
   FileConfig,
+  RedisConfig,
+  BusOptions,
   KyselyConfig,
   OrchidConfig,
   DatabaseConfig,
@@ -33,12 +35,12 @@ import { RuntimeException } from '@adonisjs/core/exceptions'
  */
 export const drivers: {
   memory: (config?: MemoryConfig) => ConfigProvider<CreateDriverResult<L1CacheDriver>>
-  redis: (config: {
-    connectionName?: keyof RedisConnections
-  }) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
-  redisBus: (config: {
-    connectionName?: keyof RedisConnections
-  }) => ConfigProvider<CreateBusDriverResult>
+  redis: (
+    config: Omit<RedisConfig, 'connection'> & { connectionName?: keyof RedisConnections }
+  ) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
+  redisBus: (
+    config: BusOptions & { connectionName?: keyof RedisConnections }
+  ) => ConfigProvider<CreateBusDriverResult>
   database: (
     config?: DatabaseConfig & { connectionName?: string }
   ) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
