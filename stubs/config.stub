@@ -18,6 +18,8 @@ const cacheConfig = defineConfig({
     {{#if driver === 'database'}}
       .useL2Layer(drivers.database({
         connectionName: 'primary',
+        autoCreateTable: false,
+        tableName: 'cache',
       }))
     {{#elif driver === 'redis'}}
       .useL2Layer(drivers.redis({

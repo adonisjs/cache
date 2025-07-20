@@ -78,4 +78,17 @@ export async function configure(command: Configure) {
    * Publish config
    */
   await codemods.makeUsingStub(stubsRoot, 'config.stub', { driver: driver })
+
+  /**
+   * Create migration for database driver
+   */
+  if (driver === 'database') {
+    await codemods.makeUsingStub(stubsRoot, 'migration.stub', {
+      entity: command.app.generators.createEntity('cache'),
+      migration: {
+        folder: 'database/migrations',
+        fileName: `${new Date().getTime()}_create_cache_table.ts`,
+      },
+    })
+  }
 }

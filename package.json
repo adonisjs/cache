@@ -151,7 +151,9 @@
       "src/types.ts",
       "providers/cache_provider.ts",
       "services/main.ts",
-      "commands/cache_clear.ts"
+      "commands/cache_clear.ts",
+      "commands/cache_delete.ts",
+      "commands/cache_prune.ts"
     ],
     "outDir": "./build",
     "clean": true,

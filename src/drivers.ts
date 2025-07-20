@@ -24,6 +24,7 @@ import {
   FileConfig,
   KyselyConfig,
   OrchidConfig,
+  DatabaseConfig,
 } from 'bentocache/types'
 import { RuntimeException } from '@adonisjs/core/exceptions'
 
@@ -38,9 +39,9 @@ export const drivers: {
   redisBus: (config: {
     connectionName?: keyof RedisConnections
   }) => ConfigProvider<CreateBusDriverResult>
-  database: (config?: {
-    connectionName?: string
-  }) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
+  database: (
+    config?: DatabaseConfig & { connectionName?: string }
+  ) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
   dynamodb: (config: DynamoDBConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
   file: (config: FileConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
   kysely: (config: KyselyConfig) => ConfigProvider<CreateDriverResult<L2CacheDriver>>
@@ -105,7 +106,12 @@ export const drivers: {
       }
 
       const { knexDriver } = await import('bentocache/drivers/knex')
-      return knexDriver({ connection: db.connection(connectionName).getWriteClient() })
+      return knexDriver({
+        connection: db.connection(connectionName).getWriteClient(),
+        autoCreateTable: config?.autoCreateTable ?? true,
+        tableName: config?.tableName || 'bentocache',
+        pruneInterval: config?.pruneInterval ?? false,
+      })
     })
   },
 
