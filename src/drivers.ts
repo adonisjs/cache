@@ -59,7 +59,10 @@ export const drivers: {
       const { redisDriver } = await import('bentocache/drivers/redis')
 
       const redisConnection = redis.connection(config.connectionName) as any as RedisConnection
-      return redisDriver({ connection: redisConnection.ioConnection, prefix: config.prefix })
+      return redisDriver({
+        connection: redisConnection.ioConnection,
+        prefix: config.prefix || 'bentocache',
+      })
     })
   },
 
@@ -116,7 +119,7 @@ export const drivers: {
         autoCreateTable: config?.autoCreateTable ?? true,
         tableName: config?.tableName || 'bentocache',
         pruneInterval: config?.pruneInterval ?? false,
-        prefix: config?.prefix,
+        prefix: config?.prefix || 'bentocache',
       })
     })
   },
