@@ -35,7 +35,6 @@ export interface CacheStores {}
 /**
  * The cache service interface registered with the container
  */
-export interface CacheService
-  extends BentoCache<
-    CacheStores extends Record<string, ReturnType<typeof bentostore>> ? CacheStores : never
-  > {}
+export interface CacheService extends BentoCache<
+  CacheStores extends Record<string, ReturnType<typeof bentostore>> ? CacheStores : never
+> {}

@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 
-import { Store } from './store.ts'
-import { CacheOptions } from './types.ts'
+import { type Store } from './store.ts'
+import { type CacheOptions } from './types.ts'
 
 /**
  * Define cache configuration

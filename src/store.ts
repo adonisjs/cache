@@ -11,11 +11,11 @@ import { bentostore } from 'bentocache'
 import { configProvider } from '@adonisjs/core'
 import type { ConfigProvider } from '@adonisjs/core/types'
 import {
-  RawCommonOptions,
-  CreateDriverResult,
-  L1CacheDriver,
-  CreateBusDriverResult,
-  L2CacheDriver,
+  type RawCommonOptions,
+  type CreateDriverResult,
+  type L1CacheDriver,
+  type CreateBusDriverResult,
+  type L2CacheDriver,
 } from 'bentocache/types'
 
 /**

@@ -9,7 +9,7 @@
 
 import type { ApplicationService } from '@adonisjs/core/types'
 
-import { defineConfig } from '../index.ts'
+import { type defineConfig } from '../index.ts'
 import type { CacheEvents } from 'bentocache/types'
 import type { CacheService } from '../src/types.ts'
 import { defineReplBindings } from '../src/bindings/repl.ts'

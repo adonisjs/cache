@@ -9,8 +9,8 @@
 
 import { args, BaseCommand } from '@adonisjs/core/ace'
 
-import { CacheService } from '../src/types.ts'
-import { CommandOptions } from '@adonisjs/core/types/ace'
+import { type CacheService } from '../src/types.ts'
+import { type CommandOptions } from '@adonisjs/core/types/ace'
 
 export default class CachePrune extends BaseCommand {
   static commandName = 'cache:prune'

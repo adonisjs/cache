@@ -12,7 +12,7 @@ import { BentoCache, bentostore } from 'bentocache'
 import { redisDriver } from 'bentocache/drivers/redis'
 import { memoryDriver } from 'bentocache/drivers/memory'
 import { IgnitorFactory } from '@adonisjs/core/factories'
-import { AppEnvironments } from '@adonisjs/core/types/app'
+import { type AppEnvironments } from '@adonisjs/core/types/app'
 import { defineConfig as defineRedisConfig } from '@adonisjs/redis'
 import { defineConfig as defineLucidConfig } from '@adonisjs/lucid'
 

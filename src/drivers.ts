@@ -15,18 +15,18 @@ import type { RedisConnection } from '@adonisjs/redis'
 import type { ConfigProvider } from '@adonisjs/core/types'
 import type { RedisConnections } from '@adonisjs/redis/types'
 import {
-  MemoryConfig,
-  CreateDriverResult,
-  L1CacheDriver,
-  L2CacheDriver,
-  CreateBusDriverResult,
-  DynamoDBConfig,
-  FileConfig,
-  RedisConfig,
-  BusOptions,
-  KyselyConfig,
-  OrchidConfig,
-  DatabaseConfig,
+  type MemoryConfig,
+  type CreateDriverResult,
+  type L1CacheDriver,
+  type L2CacheDriver,
+  type CreateBusDriverResult,
+  type DynamoDBConfig,
+  type FileConfig,
+  type RedisConfig,
+  type BusOptions,
+  type KyselyConfig,
+  type OrchidConfig,
+  type DatabaseConfig,
 } from 'bentocache/types'
 import { RuntimeException } from '@adonisjs/core/exceptions'
 
