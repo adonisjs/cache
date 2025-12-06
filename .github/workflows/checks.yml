@@ -13,10 +13,10 @@ jobs:
     uses: adonisjs/.github/.github/workflows/typecheck.yml@next
 
   test_redis:
-    uses: adonisjs/cache/.github/workflows/test_redis.yml@1.x
+    uses: adonisjs/cache/.github/workflows/test_redis.yml@2.x
 
   test_postgres:
-    uses: adonisjs/cache/.github/workflows/test_postgres.yml@1.x
+    uses: adonisjs/cache/.github/workflows/test_postgres.yml@2.x
 
   test_mysql:
-    uses: adonisjs/cache/.github/workflows/test_mysql.yml@1.x
+    uses: adonisjs/cache/.github/workflows/test_mysql.yml@2.x
