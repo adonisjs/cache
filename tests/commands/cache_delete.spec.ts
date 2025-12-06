@@ -9,8 +9,8 @@
 
 import { test } from '@japa/runner'
 import { AceFactory } from '@adonisjs/core/factories'
-import CacheDelete from '../../commands/cache_delete.js'
-import { getCacheService } from '../helpers.js'
+import CacheDelete from '../../commands/cache_delete.ts'
+import { getCacheService } from '../helpers.ts'
 
 test.group('CacheDelete', () => {
   test('Delete existing cache key from default cache', async ({ fs, assert }) => {

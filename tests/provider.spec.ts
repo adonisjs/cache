@@ -10,7 +10,7 @@
 import { pEvent } from 'p-event'
 import { test } from '@japa/runner'
 
-import { setupApp } from './helpers.js'
+import { setupApp } from './helpers.ts'
 
 test.group('Provider', () => {
   test('app emitter should be binded to bentocache', async ({ assert }) => {

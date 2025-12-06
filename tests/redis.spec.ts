@@ -11,8 +11,8 @@ import { test } from '@japa/runner'
 import { setTimeout } from 'node:timers/promises'
 import { defineConfig as defineRedisConfig } from '@adonisjs/redis'
 
-import { setupApp } from './helpers.js'
-import { defineConfig, drivers, store } from '../index.js'
+import { setupApp } from './helpers.ts'
+import { defineConfig, drivers, store } from '../index.ts'
 
 test.group('Redis', () => {
   test('re-use adonisjs/redis connection instance', async ({ assert }) => {

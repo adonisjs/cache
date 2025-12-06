@@ -16,7 +16,7 @@ import { AppEnvironments } from '@adonisjs/core/types/app'
 import { defineConfig as defineRedisConfig } from '@adonisjs/redis'
 import { defineConfig as defineLucidConfig } from '@adonisjs/lucid'
 
-import { defineConfig, store, drivers } from '../index.js'
+import { defineConfig, store, drivers } from '../index.ts'
 
 export function getCacheService(config?: any): BentoCache<any> {
   const defaultConfig = {

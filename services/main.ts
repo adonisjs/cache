@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import type { CacheService } from '../src/types.js'
+import type { CacheService } from '../src/types.ts'
 import app from '@adonisjs/core/services/app'
 
 let cache: CacheService

@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 
-import debug from '../debug.js'
-import { CacheService } from '../types.js'
+import debug from '../debug.ts'
+import { CacheService } from '../types.ts'
 
 export async function registerViewBindings(manager: CacheService) {
   const edge = await import('edge.js')

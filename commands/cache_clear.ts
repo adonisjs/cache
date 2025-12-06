@@ -9,7 +9,7 @@
 
 import { args, BaseCommand, flags } from '@adonisjs/core/ace'
 
-import { CacheService } from '../src/types.js'
+import { CacheService } from '../src/types.ts'
 import { CommandOptions } from '@adonisjs/core/types/ace'
 
 export default class CacheClear extends BaseCommand {

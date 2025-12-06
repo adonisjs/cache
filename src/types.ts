@@ -12,7 +12,7 @@ export * from 'bentocache/types'
 import type { BentoCache, bentostore } from 'bentocache'
 import type { RawBentoCacheOptions } from 'bentocache/types'
 
-import type { store } from './store.js'
+import type { store } from './store.ts'
 
 /**
  * The options accepted by the cache module

@@ -9,8 +9,8 @@
 
 import { test } from '@japa/runner'
 import { AceFactory } from '@adonisjs/core/factories'
-import CacheClear from '../../commands/cache_clear.js'
-import { getCacheService } from '../helpers.js'
+import CacheClear from '../../commands/cache_clear.ts'
+import { getCacheService } from '../helpers.ts'
 
 test.group('CacheClear', () => {
   test('Clear default cache', async ({ fs, assert }) => {

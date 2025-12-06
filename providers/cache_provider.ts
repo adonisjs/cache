@@ -9,11 +9,11 @@
 
 import type { ApplicationService } from '@adonisjs/core/types'
 
-import { defineConfig } from '../index.js'
+import { defineConfig } from '../index.ts'
 import type { CacheEvents } from 'bentocache/types'
-import type { CacheService } from '../src/types.js'
-import { defineReplBindings } from '../src/bindings/repl.js'
-import { registerViewBindings } from '../src/bindings/edge.js'
+import type { CacheService } from '../src/types.ts'
+import { defineReplBindings } from '../src/bindings/repl.ts'
+import { registerViewBindings } from '../src/bindings/edge.ts'
 
 /**
  * Extend Adonis.js types to include cache

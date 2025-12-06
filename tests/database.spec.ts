@@ -11,8 +11,8 @@ import { join } from 'node:path'
 import { test } from '@japa/runner'
 import { defineConfig as defineLucidConfig } from '@adonisjs/lucid'
 
-import { setupApp } from './helpers.js'
-import { defineConfig, drivers, store } from '../index.js'
+import { setupApp } from './helpers.ts'
+import { defineConfig, drivers, store } from '../index.ts'
 
 test.group('Database', () => {
   test('use database defined connection', async ({ assert, fs }) => {
