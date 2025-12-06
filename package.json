@@ -74,10 +74,10 @@
     "bentocache": "^1.5.0"
   },
   "peerDependencies": {
-    "@adonisjs/assembler": "^8.0.0-0",
-    "@adonisjs/core": "^7.0.0-0",
-    "@adonisjs/lucid": "^22.0.0-0",
-    "@adonisjs/redis": "^10.0.0-0"
+    "@adonisjs/assembler": "^8.0.0-next.19",
+    "@adonisjs/core": "^7.0.0-next.13",
+    "@adonisjs/lucid": "^22.0.0-next.1",
+    "@adonisjs/redis": "^10.0.0-next.1"
   },
   "peerDependenciesMeta": {
     "@adonisjs/redis": {
