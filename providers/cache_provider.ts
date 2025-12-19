@@ -99,8 +99,14 @@ export default class CacheProvider {
    */
   async register() {
     await this.#registerCacheManager()
-    await this.#registerReplBindings()
     await this.#registerEdgeBindings()
+  }
+
+  /**
+   * Boot provider
+   */
+  async boot() {
+    await this.#registerReplBindings()
   }
 
   /**
