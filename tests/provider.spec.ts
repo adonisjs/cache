@@ -53,4 +53,16 @@ test.group('Provider', () => {
     assert.property(replMethods, 'loadCache')
     assert.isFunction(replMethods.loadCache.handler)
   })
+
+  test('existing repl bindings', async ({ assert }) => {
+    const app = await setupApp('repl')
+
+    const repl = await app.container.make('repl')
+    const replMethods = repl.getMethods()
+
+    assert.property(replMethods, 'importDefault')
+    assert.property(replMethods, 'importAll')
+    assert.property(replMethods, 'loadApp')
+    assert.property(replMethods, 'loadConfig')
+  })
 })

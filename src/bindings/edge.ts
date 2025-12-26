@@ -8,7 +8,7 @@
  */
 
 import debug from '../debug.js'
-import { CacheService } from '../types.js'
+import { type CacheService } from '../types.js'
 
 export async function registerViewBindings(manager: CacheService) {
   const edge = await import('edge.js')

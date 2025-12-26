@@ -9,7 +9,7 @@
 
 import type { ApplicationService } from '@adonisjs/core/types'
 
-import { defineConfig } from '../index.js'
+import { type defineConfig } from '../index.js'
 import type { CacheEvents } from 'bentocache/types'
 import type { CacheService } from '../src/types.js'
 import { defineReplBindings } from '../src/bindings/repl.js'
@@ -49,7 +49,7 @@ export default class CacheProvider {
   /**
    * Register the cache manager to the container
    */
-  async #registerCacheManager() {
+  #registerCacheManager() {
     const cacheConfig = this.app.config.get<ReturnType<typeof defineConfig>>('cache')
 
     this.app.container.singleton('cache.manager', async () => {
@@ -97,10 +97,16 @@ export default class CacheProvider {
   /**
    * Register bindings
    */
-  async register() {
-    await this.#registerCacheManager()
-    await this.#registerReplBindings()
+  register() {
+    this.#registerCacheManager()
+  }
+
+  /**
+   * Boot provider
+   */
+  async boot() {
     await this.#registerEdgeBindings()
+    await this.#registerReplBindings()
   }
 
   /**
