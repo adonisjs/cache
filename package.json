@@ -1,7 +1,7 @@
 {
   "name": "@adonisjs/cache",
   "description": "Official caching module for AdonisJS framework",
-  "version": "2.0.1-next.1",
+  "version": "2.0.1-next.2",
   "engines": {
     "node": ">=22.0.0"
   },
@@ -163,7 +163,9 @@
     "treeshake": false,
     "sourcemaps": false,
     "target": "esnext",
-    "external": ["edge.js"]
+    "external": [
+      "edge.js"
+    ]
   },
   "packageManager": "pnpm@10.29.2"
 }
