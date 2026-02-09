@@ -31,7 +31,7 @@
     "pretest": "npm run lint",
     "test": "c8 npm run quick:test",
     "prebuild": "npm run lint && npm run clean",
-    "build": "tsup-node && tsc --emitDeclarationOnly --declaration",
+    "build": "tsdown && tsc --emitDeclarationOnly --declaration",
     "postbuild": "npm run copy:templates && npm run index:commands",
     "release": "npx release-it",
     "version": "npm run build",
@@ -67,7 +67,7 @@
     "pg": "^8.18.0",
     "prettier": "^3.8.1",
     "release-it": "^19.2.4",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.20.1",
     "typescript": "~5.9.3"
   },
   "dependencies": {
@@ -144,7 +144,7 @@
       "tests/**"
     ]
   },
-  "tsup": {
+  "tsdown": {
     "entry": [
       "index.ts",
       "src/types.ts",
@@ -157,9 +157,13 @@
     "outDir": "./build",
     "clean": true,
     "format": "esm",
+    "minify": "dce-only",
+    "fixedExtension": false,
     "dts": false,
-    "sourcemap": false,
-    "target": "esnext"
+    "treeshake": false,
+    "sourcemaps": false,
+    "target": "esnext",
+    "external": ["edge.js"]
   },
   "packageManager": "pnpm@10.29.2"
 }
