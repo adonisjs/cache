@@ -21,6 +21,7 @@ processCLIArgs(process.argv.slice(2))
 configure({
   files: ['tests/**/*.spec.ts'],
   plugins: [assert(), snapshot(), fileSystem({ autoClean: true }), expectTypeOf()],
+  forceExit: true,
 })
 
 /*
