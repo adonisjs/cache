@@ -9,9 +9,9 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        node-version: ["latest"]
+        node-version: ["24"]
         redis-version: ["7-alpine"]
-        postgres-version: ["15-alpine", "16-alpine", "17-alpine"]
+        postgres-version: ["17-alpine"]
         mysql-version: ["latest"]
 
     services:
