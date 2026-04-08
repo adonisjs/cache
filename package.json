@@ -38,10 +38,10 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^8.0.0",
-    "@adonisjs/core": "^7.0.0",
+    "@adonisjs/assembler": "^8.4.0",
+    "@adonisjs/core": "^7.3.0",
     "@adonisjs/eslint-config": "^3.0.0",
-    "@adonisjs/lucid": "^22.0.0",
+    "@adonisjs/lucid": "^22.4.2",
     "@adonisjs/prettier-config": "^1.4.5",
     "@adonisjs/redis": "^10.0.0",
     "@adonisjs/tsconfig": "^2.0.0",
@@ -51,24 +51,24 @@
     "@japa/runner": "^5.3.0",
     "@japa/snapshot": "^2.0.10",
     "@poppinss/ts-exec": "^1.4.4",
-    "@release-it/conventional-changelog": "^10.0.5",
-    "@types/node": "~25.3.0",
-    "better-sqlite3": "^12.6.2",
+    "@release-it/conventional-changelog": "^10.0.6",
+    "@types/node": "~25.5.2",
+    "better-sqlite3": "^12.8.0",
     "c8": "^11.0.0",
     "copyfiles": "^2.4.1",
     "del-cli": "^7.0.0",
     "edge.js": "^6.5.0",
-    "eslint": "^9.39.3",
-    "ioredis": "^5.9.3",
-    "knex": "^3.1.0",
+    "eslint": "^9.39.4",
+    "ioredis": "^5.10.1",
+    "knex": "^3.2.9",
     "luxon": "^3.7.2",
-    "mysql2": "^3.18.1",
+    "mysql2": "^3.20.0",
     "p-event": "^7.1.0",
-    "pg": "^8.19.0",
+    "pg": "^8.20.0",
     "prettier": "^3.8.1",
     "release-it": "^19.2.4",
-    "tsdown": "^0.20.3",
-    "typescript": "~5.9.3"
+    "tsdown": "^0.21.7",
+    "typescript": "~6.0.2"
   },
   "dependencies": {
     "bentocache": "^1.6.1"
@@ -167,5 +167,5 @@
       "edge.js"
     ]
   },
-  "packageManager": "pnpm@10.30.2"
+  "packageManager": "pnpm@10.33.0"
 }
