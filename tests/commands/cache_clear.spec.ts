@@ -115,6 +115,32 @@ test.group('CacheClear', () => {
     assert.isUndefined(await cache.get({ key: 'foo' }))
   })
 
+  test('skip production prompt when --force flag is used', async ({ fs, assert, cleanup }) => {
+    process.env.NODE_ENV = 'production'
+    cleanup(() => {
+      delete process.env.NODE_ENV
+    })
+
+    const ace = await new AceFactory().make(fs.baseUrl, {
+      importer: (path) => import(path),
+    })
+
+    await ace.app.init().then(() => ace.app.boot())
+    ace.ui.switchMode('raw')
+
+    const cache = getCacheService()
+    ace.app.container.singleton('cache.manager', () => cache)
+
+    await cache.set({ key: 'foo', value: 'bar' })
+    cleanup(() => cache.clear())
+
+    const command = await ace.create(CacheClear, [])
+    command.force = true
+    await command.run()
+
+    assert.isUndefined(await cache.get({ key: 'foo' }))
+  })
+
   test('exit when user specify a non-existing cache store', async ({ fs, assert }) => {
     const ace = await new AceFactory().make(fs.baseUrl, {
       importer: (path) => import(path),

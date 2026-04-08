@@ -39,6 +39,12 @@ export default class CacheClear extends BaseCommand {
   declare tags: string[]
 
   /**
+   * Force clear the cache without asking for confirmation in production
+   */
+  @flags.boolean({ description: 'Explicitly force to clear cache in production' })
+  declare force: boolean
+
+  /**
    * Prompts to take consent when clearing the cache in production
    */
   async #takeProductionConsent(): Promise<boolean> {
@@ -94,7 +100,7 @@ export default class CacheClear extends BaseCommand {
     /**
      * Take consent when clearing the cache in production
      */
-    if (this.app.inProduction) {
+    if (this.app.inProduction && !this.force) {
       const shouldClear = await this.#takeProductionConsent()
       if (!shouldClear) return
     }
