@@ -1,7 +1,7 @@
 {
   "name": "@adonisjs/cache",
   "description": "Official caching module for AdonisJS framework",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "engines": {
     "node": ">=20.6.0"
   },
